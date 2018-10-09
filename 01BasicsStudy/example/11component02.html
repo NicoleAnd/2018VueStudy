@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Component02</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>Component02</h1>
+    <hr>
+    <div id="app">
+        <panda :here="message"></panda>
+    </div>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data:{
+                message:'china'
+            },
+            components:{
+                "panda":{
+                    template:`
+                        <div style="color:green">Panda from {{here}}</div>
+                    `,
+                    props:['here']
+                }
+            }
+        });
+    </script>
+</body>
+</html>

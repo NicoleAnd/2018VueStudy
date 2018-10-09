@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-for</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>v-for</h1>
+    <hr>
+    <div id="app">
+        <ul>
+            <li v-for="item in items">
+                {{item}}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        function sortNumber(a,b){
+            return a-b
+        }
+        var app = new Vue({
+            el:'#app',
+            data:{
+                items:[20,30,49,50,67,3,5,1]
+            },
+            computed:{
+                sortItems:function(){
+                    return this.items.sort(sortNumber);
+                }
+            }
+        })
+    </script>
+</body>
+</html>
