@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script src="../assets/js/jquery-3.2.1.min.js"></script>
+    <script>
+        test1('apple');
+        // 条件语句
+        function test1(fruit){
+            if(fruit == 'apple' || fruit == 'strawberry'){
+                console.log('test1 result is red');
+            }
+        }
+        
+        /*----------使用 Array.includes 来处理多重条件------------*/
+        test2('apple');
+        //Array.includes(Array.includes) 重写以上条件句。
+        function test2(fruit){
+            // 把条件提取到数组中
+            const redFruits = ['apple','strawberry','cherry','cranberries'];
+
+            if(redFruits.includes(fruit)){
+                console.log('test2 result is red');
+            }
+        }
+
+        // 如果没有提供水果，抛出错误。
+        // 如果该水果的数量大于 10，将其打印出来。
+        // test3(null); // 报错：No fruits
+        // test3('apple'); // 打印：red
+        test3('apple', 20); // 打印：red，big quantity
+        function test3(fruit,quantity){
+            const redFruits = ['apple','strawberry','cherry','cranberries'];
+
+            // 条件1：fruit 必须有值
+            if(fruit){
+                //条件2：必须为红色
+                if(redFruits.includes(fruit)){
+                    console.log('test3 result is red');
+                    if(quantity > 10){
+                        console.log('big quantity');
+                    }
+                }
+            }else{
+                throw new Error('No fruit');
+            }
+        }
+
+         /*----------少写嵌套，尽早返回-----------*/
+         
+        // 遵循的一个总的规则是当发现无效条件时尽早返回。
+        // 这样的代码比较简短和直白，一个嵌套的 if 使得结构更加清晰。
+        // 条件反转会导致更多的思考过程（增加认知负担）。
+        test4('apple', 20); // 打印：red，big quantity
+        function test4(fruit,quantity){
+            const redFruits = ['apple','strawberry','cherry','cranberries'];
+
+            // 条件 1：尽早抛出错误
+            if(!fruit) throw new Error("No fruit!");
+
+            // 条件2：必须为红色
+            if(redFruits.includes(fruit)){
+                console.log('test4 result is red');
+                // 条件 3：必须是大量存在
+                if (quantity > 10) {
+                console.log('big quantity');
+                }
+            }
+        }
+        // 我们还可以进一步地减少嵌套层级
+        // /_ 当发现无效条件时尽早返回 _/
+        test5('apple', 20); // 打印：red，big quantity
+        function test5(fruit,quantity){
+            const redFruits = ['apple','strawberry','cherry','cranberries'];
+            
+            // 条件 1：尽早抛出错误
+            if (!fruit) throw new Error('No fruit!'); 
+            // 条件 2：当 fruit 不是红色的时候，直接返回
+            if (!redFruits.includes(fruit)) return; 
+            console.log('test5 result is red');
+
+            // 条件 3：必须是大量存在
+            if (quantity > 10) {
+                console.log('big quantity');
+            }
+
+        }
+
+        /*----------使用函数默认参数和解构-----------*/
+        function test6(fruit,quantity){
+            if(!fruit) return;
+            const q = quantity || 1;// 如果没有提供 quantity，默认为 1
+
+            console.log(`We have ${q} ${fruit}!`);
+        }
+        // 测试结果
+        test6('banana'); // We have 1 banana!
+        test6('apple', 2); // We have 2 apple!
+
+        // 可以通过函数的默认参数来去掉变量 q
+        function test7(fruit,quantity = 1){ // 如果没有提供 quantity，默认为 1
+            if(!fruit) return;
+            console.log(`We have ${quantity} ${fruit}!`);
+        }
+        //测试结果
+        test7('banana'); // We have 1 banana!
+        test7('apple', 2); // We have 2 apple!
+
+        // 如果 fruit 是一个对象（Object）呢？我们还可以使用默认参数吗？
+        function test8(fruit){
+            // 如果有值，则打印出来
+            if(fruit && fruit.name){
+
+            }
+        }
+    </script>
+</body>
+</html>
